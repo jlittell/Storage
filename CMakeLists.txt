@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 # taken from http://geant4.cern.ch/support/source/geant4/CMakeLists.txt
 IF(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-    message(STATUS "Commodconverter requires an out-of-source build.")
+    message(STATUS "Storage requires an out-of-source build.")
     message(STATUS "Please remove these files from ${CMAKE_BINARY_DIR} first:")
     message(STATUS "CMakeCache.txt")
     message(STATUS "CMakeFiles")
@@ -10,8 +10,8 @@ IF(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "in-source build detected")
 ENDIF()
 
-# This project name is commodconverter.
-PROJECT( commodconverter )
+# This project name is storage.
+PROJECT( storage )
 
 # quiets fortify_source warnings when not compiling with optimizations
 # in linux distros where compilers were compiled with fortify_source enabled by
@@ -25,29 +25,29 @@ ENDIF()
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overflow")
 
     # Direct any out-of-source builds to this directory
-SET( COMMODCONVERTER_SOURCE_DIR ${CMAKE_SOURCE_DIR} )
+SET( STORAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR} )
 
 # Direct any binary installation paths to this directory
-SET( COMMODCONVERTER_BINARY_DIR ${CMAKE_BINARY_DIR} )
+SET( STORAGE_BINARY_DIR ${CMAKE_BINARY_DIR} )
 
 # Direct doxygen here
-SET( COMMODCONVERTER_DOC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/doc )
+SET( STORAGE_DOC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/doc )
 
 # This makes all the libraries build as SHARED
 SET(BUILD_SHARED_LIBS true)
 
 # Setup build locations.
 IF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${COMMODCONVERTER_BINARY_DIR}/bin)
+  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${STORAGE_BINARY_DIR}/bin)
 endif()
 IF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${COMMODCONVERTER_BINARY_DIR}/lib)
+  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${STORAGE_BINARY_DIR}/lib)
 endif()
 IF(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-  SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${COMMODCONVERTER_BINARY_DIR}/lib)
+  SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${STORAGE_BINARY_DIR}/lib)
 ENDIF()
 
-SET(COMMODCONVERTER_EXECUTABLE_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+SET(STORAGE_EXECUTABLE_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # use, i.e. don't skip the full RPATH for the build tree
 SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
@@ -70,7 +70,7 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 
 # Tell CMake where the modules are
 SET( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_DIR}/share/cmake-2.8/Modules")
-SET( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${COMMODCONVERTER_SOURCE_DIR}/cmake )
+SET( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${STORAGE_SOURCE_DIR}/cmake )
 MESSAGE("CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}")
 
 # Include macros
@@ -78,12 +78,12 @@ INCLUDE(UseCyclus)
 
 # Find cyclus
 FIND_PACKAGE( Cyclus REQUIRED )
-SET(COMMODCONVERTER_INCLUDE_DIRS ${COMMODCONVERTER_INCLUDE_DIRS} ${CYCLUS_CORE_INCLUDE_DIR})
+SET(STORAGE_INCLUDE_DIRS ${STORAGE_INCLUDE_DIRS} ${CYCLUS_CORE_INCLUDE_DIR})
 SET(LIBS ${LIBS} ${CYCLUS_CORE_LIBRARIES})
 
 # Find LibXML++ and dependencies
 FIND_PACKAGE( LibXML++ REQUIRED )
-SET(COMMODCONVERTER_INCLUDE_DIRS ${COMMODCONVERTER_INCLUDE_DIRS} ${LibXML++_INCLUDE_DIR} ${Glibmm_INCLUDE_DIRS} ${LibXML++Config_INCLUDE_DIR})
+SET(STORAGE_INCLUDE_DIRS ${STORAGE_INCLUDE_DIRS} ${LibXML++_INCLUDE_DIR} ${Glibmm_INCLUDE_DIRS} ${LibXML++Config_INCLUDE_DIR})
 SET(LIBS ${LIBS} ${LibXML++_LIBRARIES})
 MESSAGE("--LIBS: ${LIBS}")
 
@@ -93,7 +93,7 @@ MESSAGE("--LD_LIBRARY_PATH: $ENV{LD_LIBRARY_PATH}")
 SET(Boost_USE_STATIC_LIBS       OFF)
 SET(Boost_USE_STATIC_RUNTIME    OFF)
 FIND_PACKAGE( Boost COMPONENTS filesystem system REQUIRED)
-SET(COMMODCONVERTER_INCLUDE_DIRS ${COMMODCONVERTER_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
+SET(STORAGE_INCLUDE_DIRS ${STORAGE_INCLUDE_DIRS} ${Boost_INCLUDE_DIR})
 SET(LIBS ${LIBS} ${Boost_FILESYSTEM_LIBRARY})
 SET(LIBS ${LIBS} ${Boost_SYSTEM_LIBRARY})
 
@@ -110,10 +110,10 @@ set(LIBS ${LIBS} ${HDF5_LIBRARIES} )
 # find coin and link to it
 FIND_PACKAGE( COIN REQUIRED )
 set(LIBS ${LIBS} ${COIN_LIBRARIES})
-SET(COMMODCONVERTER_INCLUDE_DIRS ${COMMODCONVERTER_INCLUDE_DIRS} ${COIN_INCLUDE_DIRS})
+SET(STORAGE_INCLUDE_DIRS ${STORAGE_INCLUDE_DIRS} ${COIN_INCLUDE_DIRS})
 
 # include all the directories we just found
-INCLUDE_DIRECTORIES(${COMMODCONVERTER_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${STORAGE_INCLUDE_DIRS})
 
 
 # add the agents
@@ -134,14 +134,14 @@ add_custom_target(uninstall
 ##############################################################################################
 
 # This is the directory that holds the doxygen doxyfile template (doxy.conf.in)
-SET(DOC_SOURCE_DIR "${COMMODCONVERTER_SOURCE_DIR}")
-SET(DOC_INPUT_DIR "${COMMODCONVERTER_DOC_DIR}")
+SET(DOC_SOURCE_DIR "${STORAGE_SOURCE_DIR}")
+SET(DOC_INPUT_DIR "${STORAGE_DOC_DIR}")
 SET(DOC_OUTPUT_DIR "${CMAKE_BINARY_DIR}/doc")
 
 # If doxygen exists, use the doc/CMakeLists.txt file for further instructions.
 FIND_PACKAGE(Doxygen)
 IF(DOXYGEN_FOUND)
-    ADD_SUBDIRECTORY("${COMMODCONVERTER_DOC_DIR}")
+    ADD_SUBDIRECTORY("${STORAGE_DOC_DIR}")
 ELSE(DOXYGEN_FOUND)
     MESSAGE(STATUS "WARNING: Doxygen not found - doc won't be created")
 ENDIF(DOXYGEN_FOUND)
