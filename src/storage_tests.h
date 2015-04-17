@@ -29,11 +29,10 @@ class StorageTest : public ::testing::Test {
   void TestStocks(storage::Storage* fac, cyclus::CompMap v);
 
   std::string in_c1, out_c1;
-  std::string in_r1, out_r1;
+  std::string in_r1;
 
   int process_time;
   double capacity, max_inv_size, cost;
 };
 } // namespace storage
 #endif // STORAGE_TESTS_H_
-
