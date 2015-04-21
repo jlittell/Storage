@@ -2,27 +2,27 @@
 
 Hello
 ==============
-This page describes the CommodConverter. This is a library generated for use 
+This page describes the Storage Facility. This is a library generated for use 
 with the Cyclus simulator.
 
 
 To use this library, first make sure that you have the dependencies installed, 
 namely |Cyclus|, CMake, and a recent version of Python (2.7 or 3.3+).
 
-First, you need to get the ``commodconverter`` code. 
-You can grab the commodconverter by using git to 
-`clone the repository <https://github.com/katyhuff/commodconverter.git>`_ 
+First, you need to get the ``storage`` code. 
+You can grab the storage facility by using git to 
+`clone the repository <https://github.com/jlittell/Storage.git>`_ 
 
-**Getting commodconverter via git:**
+**Getting Storage via git:**
 
 .. code-block:: bash
 
-    $ git clone https://github.com/katyhuff/commodconverter.git 
-    $ cd commodconverter
+    $ git clone https://github.com/jlittell/Storage.git 
+    $ cd Storage
 
 ------------
 
-Now that we have the code, let's compile and install the ``commodconverter`` project.  This 
+Now that we have the code, let's compile and install the ``Storage`` project.  This 
 is done with the install.py script.
 Where did you install Cyclus? If you used a ``$PREFIX`` for cyclus, use the same one here. I used ``../install``.
 
@@ -32,7 +32,7 @@ Where did you install Cyclus? If you used a ``$PREFIX`` for cyclus, use the same
 
 ------------
 
-Let's run |cyclus| with the CommodConverter! In the input directory there is
+Let's run |cyclus| with the Storage Facility! In the input directory there is
 an :file:`example.xml`. Running |cyclus| on this file with the command
 ``cyclus input/example.xml`` should produce the following output.
 
